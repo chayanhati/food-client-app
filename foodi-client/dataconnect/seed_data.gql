@@ -1,0 +1,78 @@
+mutation SeedData @transaction @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  user_insertMany(data: [
+    {
+      id: "6774df48-190a-4e27-b93f-743efbb8a8b3",
+      createdAt: "2024-04-26T12:00:00Z",
+      displayName: "Demo User 1",
+      email: "demo1@example.com"
+    },
+    {
+      id: "074c36a5-9249-4e9c-a101-62ca17e79819",
+      createdAt: "2024-04-27T12:00:00Z",
+      displayName: "Demo User 2",
+      email: "demo2@example.com"
+    }
+  ])
+  project_insertMany(data: [
+    {
+      id: "2a74cc9d-7316-4865-967f-719e15c4d193",
+      ownerId: "6774df48-190a-4e27-b93f-743efbb8a8b3",
+      createdAt: "2024-04-28T12:00:00Z",
+      description: "Demo Project 1",
+      name: "Project Alpha",
+      projectId: "e2b92cc7-4d93-4a73-b439-1e2601ab49dd"
+    },
+    {
+      id: "5a8a2c8d-7174-4aa5-b01b-ca302c2c0264",
+      ownerId: "074c36a5-9249-4e9c-a101-62ca17e79819",
+      createdAt: "2024-04-29T12:00:00Z",
+      description: "Demo Project 2",
+      name: "Project Beta",
+      projectId: "48c9f53d-4d4d-4cae-9e9a-5c57bb30c8de"
+    }
+  ])
+  permission_insertMany(data: [
+    {
+      userId: "6774df48-190a-4e27-b93f-743efbb8a8b3",
+      projectId: "2a74cc9d-7316-4865-967f-719e15c4d193",
+      role: "admin"
+    },
+    {
+      userId: "074c36a5-9249-4e9c-a101-62ca17e79819",
+      projectId: "5a8a2c8d-7174-4aa5-b01b-ca302c2c0264",
+      role: "member"
+    }
+  ])
+  deployment_insertMany(data: [
+    {
+      projectId: "2a74cc9d-7316-4865-967f-719e15c4d193",
+      userId: "6774df48-190a-4e27-b93f-743efbb8a8b3",
+      deploymentId: "9c1c3131-650a-4962-9c2a-391c82ba9162",
+      startTime: "2024-04-30T12:00:00Z",
+      status: "active",
+      id: "1d848a86-3106-4142-a354-e2b86939ca1c"
+    },
+    {
+      projectId: "5a8a2c8d-7174-4aa5-b01b-ca302c2c0264",
+      userId: "074c36a5-9249-4e9c-a101-62ca17e79819",
+      deploymentId: "26c89579-b0c6-4d75-b327-402b1008f64f",
+      startTime: "2024-05-01T12:00:00Z",
+      status: "inactive",
+      id: "2c67e6b3-4467-4d5e-b824-8c964e429465"
+    }
+  ])
+  deploymentService_insertMany(data: [
+    {
+      deploymentId: "1d848a86-3106-4142-a354-e2b86939ca1c",
+      serviceName: "auth",
+      status: "running",
+      id: "16958b6d-b8b8-462c-b515-51265216993c"
+    },
+    {
+      deploymentId: "2c67e6b3-4467-4d5e-b824-8c964e429465",
+      serviceName: "database",
+      status: "stopped",
+      id: "61520c47-4f5f-4c67-8a3b-b3f03fd81786"
+    }
+  ])
+}

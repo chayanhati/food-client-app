@@ -1,0 +1,39 @@
+mutation CreateUser @auth(level: USER) {
+  user_insert(data: {
+    displayName: "New User",
+    email: "newuser@example.com",
+    createdAt_expr: "request.time",
+    id_expr: "uuidV4()"
+  })
+}
+
+query ListProjects @auth(level: USER) {
+  projects {
+    id
+    name
+    description
+  }
+}
+
+mutation UpdateProjectDescription($id: UUID!, $description: String) @auth(level: USER) {
+  project_update(
+    id: $id,
+    data: {
+      description: $description
+    }
+  )
+}
+
+query GetProjectDetails($id: UUID!) @auth(level: USER) {
+  project(id: $id) {
+    id
+    name
+    description
+    createdAt
+    owner {
+      id
+      displayName
+      email
+    }
+  }
+}
